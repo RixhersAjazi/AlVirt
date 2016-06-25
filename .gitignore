@@ -3,3 +3,5 @@
 .env
 .idea
 /storage
+/resources/files/etc/apache2/ssl/apache.crt
+/resources/files/etc/apache2/ssl/apache.key
