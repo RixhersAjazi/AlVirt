@@ -8,7 +8,7 @@ echo "---------------------------------------------"
 echo Pushing to $host ...
 echo "---------------------------------------------"
 
-rsync -azv --exclude '.*' --exclude 'Vagrantfile' --exclude 'bash/alvirt_push'  /Users/RiXa/code/AlVirt/* root@$host:/var/www/alvirt/
+rsync -azv --exclude '.*' --exclude 'bash/alvirt_push' /Users/RiXa/code/AlVirt/* root@$host:/var/www/alvirt/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/sites-available/alvirt.conf root@$host:/etc/apache2/sites-available/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/ssl/* root@$host:/etc/apache2/ssl/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/conf-available/php5-fpm.conf root@$host:/etc/apache2/conf-available/
@@ -16,6 +16,9 @@ rsync -azv /Users/RiXa/code/AlVirt/.env root@$host:/var/www/alvirt/
 
 echo "---------------------------------------------"
 echo Setting file ownership and permissions ...
-echo "---------------------------------------------"
 
 ssh $host "cd /var/www/ && chown -R root:www-data alvirt/ && chmod 755 -R alvirt/ && cd alvirt/ && chmod 775 -R storage/"
+
+printf "\n"
+echo File ownership and permissions set ...
+echo "---------------------------------------------"
