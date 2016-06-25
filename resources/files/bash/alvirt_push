@@ -8,7 +8,7 @@ echo "---------------------------------------------"
 echo Pushing to $host ...
 echo "---------------------------------------------"
 
-rsync -azv --exclude '.*' --exclude 'bash/alvirt_push' /Users/RiXa/code/AlVirt/* root@$host:/var/www/alvirt/
+rsync -azv --exclude 'Homestead.yaml' --exclude 'VagrantFile' --exclude '.*' --exclude 'bash/alvirt_push' /Users/RiXa/code/AlVirt/* root@$host:/var/www/alvirt/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/sites-available/alvirt.conf root@$host:/etc/apache2/sites-available/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/ssl/* root@$host:/etc/apache2/ssl/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/conf-available/php5-fpm.conf root@$host:/etc/apache2/conf-available/
