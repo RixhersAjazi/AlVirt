@@ -2,7 +2,7 @@
 
 # Check for pem file
 if [ ! -f /Users/RiXa/.ssh/pems/AlVirt.pem ]; then
-    echo "You are not allowed to push to AlVirt - please contact coderrix@gmail.com to push code to alvirt"
+    echo "You are not allowed to push to AlVirt - please contact coderrix@gmail.com to push code to AlVirt"
     exit 1
 fi
 
