@@ -12,13 +12,38 @@ rsync -azv --exclude 'Homestead.yaml' --exclude 'VagrantFile' --exclude '.*' --e
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/sites-available/alvirt.conf root@$host:/etc/apache2/sites-available/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/ssl/* root@$host:/etc/apache2/ssl/
 rsync -azv /Users/RiXa/code/AlVirt/resources/files/etc/apache2/conf-available/php5-fpm.conf root@$host:/etc/apache2/conf-available/
-rsync -azv /Users/RiXa/code/AlVirt/.env root@$host:/var/www/alvirt/
+rsync -azv /Users/RiXa/code/AlVirt/.env.example root@$host:/var/www/alvirt/
 
+# File ownership and permissions
 echo "---------------------------------------------"
 echo Setting file ownership and permissions ...
-
 ssh $host "cd /var/www/ && chown -R root:www-data alvirt/ && chmod 755 -R alvirt/ && cd alvirt/ && chmod 775 -R storage/"
+echo OK
+echo "---------------------------------------------"
 
 printf "\n"
-echo File ownership and permissions set ...
+
+# Composer autoload file
+echo "---------------------------------------------"
+echo Creating new composer autoload file ...
+ssh $host "cd /var/www/alvirt/ && composer dump-autoload"
+echo OK
+echo "---------------------------------------------"
+
+printf "\n"
+
+# Database migrations
+echo "---------------------------------------------"
+echo Applying database migrations to production ...
+ssh $host "cd /var/www/alvirt/ && php artisan migrate --force"
+echo OK
+echo "---------------------------------------------"
+
+printf "\n"
+
+# Cache warming
+echo "---------------------------------------------"
+echo Clearing and updating cache ...
+ssh $host "cd /var/www/alvirt/ && php artisan view:clear && php artisan route:cache && php artisan clear-compiled && php artisan optimize"
+echo OK
 echo "---------------------------------------------"

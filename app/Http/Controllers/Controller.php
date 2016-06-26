@@ -11,4 +11,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * @param $page
+     * @param array $data
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function renderView($page, $data = [])
+    {
+        return view($page, $data);
+    }
 }
